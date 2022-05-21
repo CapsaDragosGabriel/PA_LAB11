@@ -16,5 +16,5 @@ public interface UserDAO {
     Optional<User> selectUserById(Long id);
     int deleteUserById(Long id);
     int updateUserById(Long id,User user);
-
+    int addFriend(Long id,Long id2);
 }

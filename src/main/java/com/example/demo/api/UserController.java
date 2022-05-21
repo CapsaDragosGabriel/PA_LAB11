@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("api/v1/user")
 @RestController
@@ -32,6 +34,20 @@ public class UserController {
     @GetMapping(path="{id}")
     public User getUserById(@PathVariable("id") Long id) {
         return userService.getUserById(id).orElse(null);
+    }
+
+    @GetMapping(path="{id}/friends")
+    public Optional<List<String>> getUserFriends(@PathVariable("id") Long id) {
+        return userService.getUserFriends(id);
+    }
+
+    @GetMapping(path="top/{no}")
+    public Optional<List<User>> getMostPopular(@PathVariable("no") Long no) {
+        return Optional.ofNullable(userService.getMostPopular(no));
+    }
+    @PostMapping(path="{id}/friend/{id2}")
+    public void addUserFriend(@PathVariable("id") Long id,@PathVariable("id2") Long id2) {
+        userService.addUserFriend(id,id2);
     }
 
     @DeleteMapping(path="{id}")
